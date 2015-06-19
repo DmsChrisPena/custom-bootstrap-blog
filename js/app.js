@@ -1,50 +1,34 @@
-// This is the jQuery to make the page scroll
-// All praise to jQuery!
+// var myAge = prompt("What is your age?");
 
-jQuery(document).ready(function($) { $("#scrollBlogpost").click(function() {
-	    $('html, body').animate({
-	        scrollTop: $("#blogPost").offset().top
-	    }, 1200);
-	    return false;
-	});
-});
+// if(myAge < 21) {
+// 	alert("Sorry you can't enter the club.");
+// } else {
+// 	alert("Welcome to the club!");
+// }
 
-jQuery(document).ready(function($) { $("#scrollBlogpost1").click(function() {
-	    $('html, body').animate({
-	        scrollTop: $("#blogPost").offset().top
-	    }, 1700);
-	    return false;
-	});
-});
+var app = angular.module("chrisApp", ["firebase"]);
 
-jQuery(document).ready(function($) { $("#scrollBlogpost2").click(function() {
-	    $('html, body').animate({
-	        scrollTop: $("#blogPost").offset().top
-	    }, 1700);
-	    return false;
-	});
-});
+app.controller("chrisCtrl", ["$scope", "$firebaseArray", "$firebaseObject", 
+	function($scope, $firebaseArray, $firebaseObject) {
+		var ref = new Firebase("https://yoboredprofile.firebaseio.com");
+		$scope.messages = $firebaseArray(ref);
 
-jQuery(document).ready(function($) { $("#scrollBlogpost3").click(function() {
-	    $('html, body').animate({
-	        scrollTop: $("#blogPost").offset().top
-	    }, 1700);
-	    return false;
-	});
-});
+		//ADD MESSAGE METHOD
+		$scope.addMessage = function(e) {
 
-jQuery(document).ready(function($) { $("#scrollBlogpost4").click(function() {
-	    $('html, body').animate({
-	        scrollTop: $("#blogPost").offset().top
-	    }, 1700);
-	    return false;
-	});
-});
 
-jQuery(document).ready(function($) { $("#scrollBlogpost5").click(function() {
-	    $('html, body').animate({
-	        scrollTop: $("#blogPost").offset().top
-	    }, 1700);
-	    return false;
-	});
-});
+		  if (e.keyCode === 13 && $scope.myMessage) {
+
+		    var myName = $scope.myName;
+		    var myMessage = $scope.myMessage;
+
+		    $scope.messages.$add({ from: myName, body: myMessage});
+
+		    $scope.myName = "";
+		    $scope.myMessage = "";
+		  }
+		}
+
+	}
+]);
+
